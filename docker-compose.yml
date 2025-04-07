@@ -1,0 +1,60 @@
+services:
+#  auth-service:
+#    build:
+#      context: ./backend/auth-service
+#      dockerfile: Dockerfile
+#    container_name: auth-service
+#    ports:
+#      - "8081:8081"
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#
+#  user-service:
+#    build:
+#      context: ./backend/user-service
+#      dockerfile: Dockerfile
+#    container_name: user-service
+#    ports:
+#      - "8082:8082"
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#
+#  movie-service:
+#    build:
+#      context: ./backend/movie-service
+#      dockerfile: Dockerfile
+#    container_name: movie-service
+#    ports:
+#      - "8083:8083"
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#
+#  recommendation-service:
+#    build:
+#      context: ./backend/recommendation-service
+#      dockerfile: Dockerfile
+#    container_name: recommendation-service
+#    ports:
+#      - "8084:8084"
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#
+#  notification-service:
+#    build:
+#      context: ./backend/notification-service
+#      dockerfile: Dockerfile
+#    container_name: notification-service
+#    ports:
+#      - "8085:8085"
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#
+#  event-streaming:
+#    build:
+#      context: ./backend/event-streaming
+#      dockerfile: Dockerfile
+#    container_name: event-streaming
+#    ports:
+#      - "8086:8086"
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker

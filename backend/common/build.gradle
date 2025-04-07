@@ -1,0 +1,12 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.kafka:spring-kafka:3.3.3'// Общие Kafka модели
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2' // Сериализация DTO
+}
