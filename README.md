@@ -1,4 +1,4 @@
-# 🎬 MovieApp
+# 🎬 MovieApp - Microservices Architecture
 
 MovieApp is a scalable and robust web application designed for managing movies, user profiles, and personalized recommendations. It uses a microservices architecture implemented in Java (Spring Boot) with Angular on the frontend. Communication between microservices is managed through REST APIs and Apache Kafka for event-driven interactions.
 
@@ -22,8 +22,7 @@ Frontend (Angular)
 └── Premium Subscription
        │ HTTP
 Backend (Spring Boot)
-├── Auth Service
-├── User Service
+├── User Service (Auth + User management)
 ├── Movie Service
 ├── Recommendation Service
 ├── Notification Service
@@ -35,8 +34,9 @@ Backend (Spring Boot)
 
 | Endpoint                          | Method | Service                  | Description                             |
 |-----------------------------------|--------|--------------------------|-----------------------------------------|
-| `/login`                          | POST   | `auth-service`           | User authentication and JWT retrieval   |
-| `/register`                       | POST   | `auth-service`           | User registration                       |
+| `/api/auth/login`                | POST   | `user-service`           | User authentication and JWT retrieval   |
+| `/api/auth/register`             | POST   | `user-service`           | User registration                       |
+| `/api/auth/secure-hello`         | GET    | `user-service`           | Protected test endpoint                 |
 | `/movies`                         | GET    | `movie-service`          | Retrieve popular movies                 |
 | `/movies/{id}`                    | GET    | `movie-service`          | Retrieve movie details                  |
 | `/profile/{userid}`               | GET    | `user-service`           | Retrieve user profile and movie lists   |
@@ -48,7 +48,6 @@ Backend (Spring Boot)
 
 | Topic                     | Producer                 | Consumer               | Purpose                                 |
 |---------------------------|--------------------------|------------------------|-----------------------------------------|
-| `user-registered-topic`   | `auth-service`           | `user-service`         | Handle user creation upon registration  |
 | `user-registered-topic`   | `user-service`           | `notification-service` | Send welcome notifications              |
 | `user-activity-topic`     | `movie-service`, `user-service` | `recommendation-service` | Update recommendations based on activity|
 | `notification-topic`      | `recommendation-service`, `movie-service` | `notification-service` | User notifications (new movies, etc.)   |

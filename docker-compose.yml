@@ -1,60 +1,73 @@
 services:
-#  auth-service:
-#    build:
-#      context: ./backend/auth-service
-#      dockerfile: Dockerfile
-#    container_name: auth-service
-#    ports:
-#      - "8081:8081"
-#    environment:
-#      SPRING_PROFILES_ACTIVE: docker
-#
-#  user-service:
-#    build:
-#      context: ./backend/user-service
-#      dockerfile: Dockerfile
-#    container_name: user-service
-#    ports:
-#      - "8082:8082"
-#    environment:
-#      SPRING_PROFILES_ACTIVE: docker
-#
-#  movie-service:
-#    build:
-#      context: ./backend/movie-service
-#      dockerfile: Dockerfile
-#    container_name: movie-service
-#    ports:
-#      - "8083:8083"
-#    environment:
-#      SPRING_PROFILES_ACTIVE: docker
-#
-#  recommendation-service:
-#    build:
-#      context: ./backend/recommendation-service
-#      dockerfile: Dockerfile
-#    container_name: recommendation-service
-#    ports:
-#      - "8084:8084"
-#    environment:
-#      SPRING_PROFILES_ACTIVE: docker
-#
-#  notification-service:
-#    build:
-#      context: ./backend/notification-service
-#      dockerfile: Dockerfile
-#    container_name: notification-service
-#    ports:
-#      - "8085:8085"
-#    environment:
-#      SPRING_PROFILES_ACTIVE: docker
-#
-#  event-streaming:
-#    build:
-#      context: ./backend/event-streaming
-#      dockerfile: Dockerfile
-#    container_name: event-streaming
-#    ports:
-#      - "8086:8086"
-#    environment:
-#      SPRING_PROFILES_ACTIVE: docker
+  user-service:
+    build:
+      context: ./backend/user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  movie-service:
+    build:
+      context: ./backend/movie-service
+      dockerfile: Dockerfile
+    container_name: movie-service
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  recommendation-service:
+    build:
+      context: ./backend/recommendation-service
+      dockerfile: Dockerfile
+    container_name: recommendation-service
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  notification-service:
+    build:
+      context: ./backend/notification-service
+      dockerfile: Dockerfile
+    container_name: notification-service
+    ports:
+      - "8084:8084"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  event-streaming:
+    build:
+      context: ./backend/event-streaming
+      dockerfile: Dockerfile
+    container_name: event-streaming
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  zookeeper:
+    image: bitnami/zookeeper:3.8
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: bitnami/kafka:3.4
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - zookeeper
