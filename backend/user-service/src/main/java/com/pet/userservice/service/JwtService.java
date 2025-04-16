@@ -37,7 +37,7 @@ public class JwtService {
     @SuppressWarnings("unchecked")
     public List<String> extractRoles(String token) {
         Jws<Claims> jwt = extractAllClaims(token);
-        return jwt.getPayload().get("roles", List.class);
+        return (List<String>) jwt.getPayload().get("roles");
     }
 
     @SuppressWarnings("unused")
