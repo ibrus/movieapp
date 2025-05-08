@@ -10,25 +10,34 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: admin
-          POSTGRES_DB: users
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     env:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/users
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: admin
+      # User Service DB
+      USER_SERVICE_SPRING_DATASOURCE_URL: ${{ secrets.USER_SERVICE_SPRING_DATASOURCE_URL }}
+      USER_SERVICE_SPRING_DATASOURCE_USERNAME: ${{ secrets.USER_SERVICE_SPRING_DATASOURCE_USERNAME }}
+      USER_SERVICE_SPRING_DATASOURCE_PASSWORD: ${{ secrets.USER_SERVICE_SPRING_DATASOURCE_PASSWORD }}
+
+      # Movie Service DB
+#      MOVIE_SERVICE_SPRING_DATASOURCE_URL: ${{ secrets.MOVIES_DB_URL }}
+#      MOVIE_SERVICE_SPRING_DATASOURCE_USERNAME: ${{ secrets.MOVIES_DB_USERNAME }}
+#      MOVIE_SERVICE_SPRING_DATASOURCE_PASSWORD: ${{ secrets.MOVIES_DB_PASSWORD }}
+
+      # Recommendation Service DB
+#      RECOMMENDATION_SERVICE_SPRING_DATASOURCE_URL: ${{ secrets.RECOMMEND_DB_URL }}
+#      RECOMMENDATION_SERVICE_SPRING_DATASOURCE_USERNAME: ${{ secrets.RECOMMEND_DB_USERNAME }}
+#      RECOMMENDATION_SERVICE_SPRING_DATASOURCE_PASSWORD: ${{ secrets.RECOMMEND_DB_PASSWORD }}
+
+      # Notification Service DB (optional example)
+#      NOTIFICATION_SERVICE_SPRING_DATASOURCE_URL: ${{ secrets.NOTIFICATION_DB_URL }}
+#      NOTIFICATION_SERVICE_SPRING_DATASOURCE_USERNAME: ${{ secrets.NOTIFICATION_DB_USERNAME }}
+#      NOTIFICATION_SERVICE_SPRING_DATASOURCE_PASSWORD: ${{ secrets.NOTIFICATION_DB_PASSWORD }}
+
+      # AWS configs (common)
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+      AWS_S3_ACCESS_KEY: ${{ secrets.AWS_S3_ACCESS_KEY }}
+      AWS_S3_SECRET_KEY: ${{ secrets.AWS_S3_SECRET_KEY }}
+
+      # Active profile (test)
       SPRING_PROFILES_ACTIVE: test
 
     steps:

@@ -16,12 +16,13 @@ java {
 }
 
 dependencies {
+    implementation(project(":common"))
+
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.data:spring-data-mongodb:4.4.2")
     implementation("org.springframework.kafka:spring-kafka")
     implementation("org.postgresql:postgresql")
-    implementation(project(":common"))
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")

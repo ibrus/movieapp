@@ -1,7 +1,12 @@
 plugins {
     id("java-library")
-    id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:3.4.4")
+    }
 }
 
 group = "com.pet"
@@ -20,6 +25,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter:3.4.4")
     implementation("org.springframework.boot:spring-boot-starter-web:3.4.4")
     implementation("org.springframework.kafka:spring-kafka")
+    implementation("software.amazon.awssdk:s3:2.31.21")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
     implementation("io.jsonwebtoken:jjwt-api:0.12.6")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
@@ -33,10 +39,6 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
 }
 
-tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
-    enabled = false
-}
-
-tasks.getByName<Jar>("jar") {
+tasks.named<Jar>("jar") {
     enabled = true
 }
