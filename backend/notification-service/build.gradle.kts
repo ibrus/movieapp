@@ -1,7 +1,9 @@
 plugins {
+    java
+    application
+    kotlin("jvm") version "1.9.0"
     id("org.springframework.boot") version "3.4.4"
     id("io.spring.dependency-management") version "1.1.7"
-    java
 }
 
 group = "com.pet"
@@ -22,6 +24,7 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
     implementation("org.springframework.boot:spring-boot-starter-mail")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    implementation("software.amazon.awssdk:ses:2.25.29")
 
     compileOnly("org.projectlombok:lombok:1.18.24")
     annotationProcessor("org.projectlombok:lombok:1.18.24")
@@ -34,8 +37,6 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.withType<Jar> {
-    manifest {
-        attributes["Main-Class"] = "com.pet.notificationservice.NotificationServiceApplication"
-    }
+application {
+    mainClass.set("com.pet.notificationservice.NotificationServiceApplication")
 }

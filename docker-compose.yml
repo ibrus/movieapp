@@ -39,6 +39,9 @@ services:
     ports:
       - "8084:8084"
     environment:
+      AWS_REGION: ${AWS_REGION}
+      AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
+      AWS_SECRET_KEY: ${AWS_SECRET_KEY}
       SPRING_PROFILES_ACTIVE: docker
 
   event-streaming:
@@ -71,5 +74,6 @@ services:
       - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
       - ALLOW_PLAINTEXT_LISTENER=yes
       - SPRING_PROFILES_ACTIVE=docker
+      - KAFKA_CREATE_TOPICS=user-registered:1:1
     depends_on:
       - zookeeper

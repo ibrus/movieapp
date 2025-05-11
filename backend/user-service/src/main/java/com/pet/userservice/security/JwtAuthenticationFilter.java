@@ -28,9 +28,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
+        String requestPath = request.getRequestURI();
+        System.out.println("JwtAuthenticationFilter invoked on: " + requestPath);
+
+        // Skip filtering for public endpoints
+        if (requestPath.equals("/api/auth/register") || requestPath.equals("/api/auth/login")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Missing or invalid Authorization header");
             return;
         }
 

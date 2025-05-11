@@ -1,14 +1,14 @@
 FROM amazoncorretto:17
 
-# Создаем рабочую директорию внутри контейнера
+# Create working directory inside the container
 WORKDIR /app
 
-# Копируем скомпилированный jar-файл в контейнер
-# Убедись, что jar-файл называется правильно (может отличаться версией)
+# Copy the compiled jar file into the container
+# Make sure the jar file is named correctly (version might differ)
 COPY build/libs/event-streaming-0.0.1-SNAPSHOT.jar event-streaming.jar
 
-# Пробрасываем порт 8080 (или тот, что указан в application.properties)
-EXPOSE 8086
+# Expose port 8080 (or the one specified in application.properties)
+EXPOSE 8085
 
-# Запускаем приложение
+# Run the application
 ENTRYPOINT ["java", "-jar", "event-streaming.jar"]
