@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: ${USER_SERVICE_SPRING_DATASOURCE_URL}
+    username: ${USER_SERVICE_SPRING_DATASOURCE_USERNAME}
+    password: ${USER_SERVICE_SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true 

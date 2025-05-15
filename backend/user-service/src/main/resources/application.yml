@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: user-service
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+  datasource:
+    url: ${USER_SERVICE_SPRING_DATASOURCE_URL}
+    username: ${USER_SERVICE_SPRING_DATASOURCE_USERNAME}
+    password: ${USER_SERVICE_SPRING_DATASOURCE_PASSWORD}
+
+server:
+  port: 8081 
