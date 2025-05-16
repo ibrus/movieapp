@@ -11,6 +11,11 @@ spring:
     url: ${USER_SERVICE_SPRING_DATASOURCE_URL}
     username: ${USER_SERVICE_SPRING_DATASOURCE_USERNAME}
     password: ${USER_SERVICE_SPRING_DATASOURCE_PASSWORD}
+  kafka:
+    bootstrap-servers: kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
 server:
   port: 8081 

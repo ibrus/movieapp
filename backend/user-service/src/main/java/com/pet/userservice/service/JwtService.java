@@ -1,6 +1,6 @@
 package com.pet.userservice.service;
 
-import com.pet.userservice.entity.User;
+import com.pet.userservice.model.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;

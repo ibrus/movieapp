@@ -1,4 +1,4 @@
-package com.pet.userservice.entity;
+package com.pet.userservice.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
