@@ -15,57 +15,57 @@ services:
     networks:
       - app-network
 
-  movie-service:
-    build:
-      context: ./backend/movie-service
-      dockerfile: Dockerfile
-    container_name: movie-service
-    ports:
-      - "8082:8082"
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      MONGODB_URI: ${MONGODB_URI}
-    depends_on:
-      - kafka
-    networks:
-      - app-network
-
-  recommendation-service:
-    build:
-      context: ./backend/recommendation-service
-      dockerfile: Dockerfile
-    container_name: recommendation-service
-    ports:
-      - "8083:8083"
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-
-  notification-service:
-    build:
-      context: ./backend/notification-service
-      dockerfile: Dockerfile
-    container_name: notification-service
-    ports:
-      - "8084:8084"
-    environment:
-      AWS_REGION: ${AWS_REGION}
-      AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
-      AWS_SECRET_KEY: ${AWS_SECRET_KEY}
-      SPRING_PROFILES_ACTIVE: docker
-    depends_on:
-      - kafka
-    networks:
-      - app-network
-
-  event-streaming:
-    build:
-      context: ./backend/event-streaming
-      dockerfile: Dockerfile
-    container_name: event-streaming
-    ports:
-      - "8085:8085"
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
+#  movie-service:
+#    build:
+#      context: ./backend/movie-service
+#      dockerfile: Dockerfile
+#    container_name: movie-service
+#    ports:
+#      - "8082:8082"
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#      MONGODB_URI: ${MONGODB_URI}
+#    depends_on:
+#      - kafka
+#    networks:
+#      - app-network
+#
+#  recommendation-service:
+#    build:
+#      context: ./backend/recommendation-service
+#      dockerfile: Dockerfile
+#    container_name: recommendation-service
+#    ports:
+#      - "8083:8083"
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
+#
+#  notification-service:
+#    build:
+#      context: ./backend/notification-service
+#      dockerfile: Dockerfile
+#    container_name: notification-service
+#    ports:
+#      - "8084:8084"
+#    environment:
+#      AWS_REGION: ${AWS_REGION}
+#      AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
+#      AWS_SECRET_KEY: ${AWS_SECRET_KEY}
+#      SPRING_PROFILES_ACTIVE: docker
+#    depends_on:
+#      - kafka
+#    networks:
+#      - app-network
+#
+#  event-streaming:
+#    build:
+#      context: ./backend/event-streaming
+#      dockerfile: Dockerfile
+#    container_name: event-streaming
+#    ports:
+#      - "8085:8085"
+#    environment:
+#      SPRING_PROFILES_ACTIVE: docker
 
   zookeeper:
     image: bitnami/zookeeper:latest

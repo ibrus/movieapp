@@ -1,6 +1,6 @@
 package com.pet.userservice.config;
 
-import com.pet.userservice.security.JwtAuthenticationFilter;
+import com.pet.common.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

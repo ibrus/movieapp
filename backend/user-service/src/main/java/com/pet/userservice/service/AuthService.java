@@ -2,6 +2,7 @@ package com.pet.userservice.service;
 
 import com.pet.common.enums.Role;
 import com.pet.common.event.UserRegisteredEvent;
+import com.pet.common.security.JwtService;
 import com.pet.userservice.dto.AuthRequest;
 import com.pet.userservice.dto.AuthResponse;
 import com.pet.userservice.dto.RegisterRequest;
@@ -13,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -28,12 +31,12 @@ public class AuthService {
         User user = User.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER) // or Role.ADMIN etc.
+                .role(Role.USER)
                 .build();
 
         userRepository.save(user);
 
-        String token = jwtService.generateToken(user);
+        String token = jwtService.generateToken(user.getUsername(), List.of(user.getRole().name()));
 
         //Send Kafka event
         eventPublisher.publish(UserRegisteredEvent.builder()
@@ -51,7 +54,7 @@ public class AuthService {
             throw new RuntimeException("Invalid credentials");
         }
 
-        String token = jwtService.generateToken(user);
+        String token = jwtService.generateToken(user.getUsername(), List.of(user.getRole().name()));
         return new AuthResponse(token);
     }
 }
