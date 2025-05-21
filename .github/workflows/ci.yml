@@ -18,6 +18,7 @@ jobs:
 
       # Movie Service DB
       MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
 
       # Recommendation Service DB
 #      RECOMMENDATION_SERVICE_SPRING_DATASOURCE_URL: ${{ secrets.RECOMMEND_DB_URL }}
