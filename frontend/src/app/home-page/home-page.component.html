@@ -1,0 +1,13 @@
+<div *ngIf="isLoading">Loading…</div>
+<div *ngIf="errorMsg">{{ errorMsg }}</div>
+
+<div *ngIf="defaultLists">
+  <h2>Popular</h2>
+  <movie-carousel [movies]="defaultLists.popular.results"></movie-carousel>
+
+  <h2>Top Rated</h2>
+  <movie-carousel [movies]="defaultLists.topRated.results"></movie-carousel>
+
+  <h2>Trending Today</h2>
+  <movie-carousel [movies]="defaultLists.trending.results"></movie-carousel>
+</div>

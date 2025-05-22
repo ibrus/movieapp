@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TmdbClient {
 
-    @Value("${tmdb.api.key}")
+    @Value("${tmdb.apiKey}")
     private String apiKey;
 
     private final RestTemplate restTemplate = new RestTemplate();

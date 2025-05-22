@@ -1,0 +1,6 @@
+<div class="carousel">
+  <div *ngFor="let m of movies" class="card">
+    <img [src]="'https://image.tmdb.org/t/p/w300' + m.poster_path" alt="{{ m.title }}">
+    <p>{{ m.title }}</p>
+  </div>
+</div>

@@ -18,5 +18,4 @@ server:
   port: 8082
 
 tmdb:
-  api:
-    key: ${TMDB_API_KEY}
+  apiKey: ${TMDB_API_KEY}
