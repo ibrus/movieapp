@@ -10,8 +10,11 @@ services:
       - .env
     environment:
       SPRING_PROFILES_ACTIVE: docker
+      USER_SERVICE_SPRING_DATASOURCE_USERNAME: ${USER_SERVICE_SPRING_DATASOURCE_USERNAME}
+      USER_SERVICE_SPRING_DATASOURCE_PASSWORD: ${USER_SERVICE_SPRING_DATASOURCE_PASSWORD}
     depends_on:
       - kafka
+      - postgres
     networks:
       - app-network
 
@@ -95,5 +98,35 @@ services:
     networks:
       - app-network
 
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: movieapp
+      POSTGRES_USER: ${USER_SERVICE_SPRING_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${USER_SERVICE_SPRING_DATASOURCE_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - user-service
+    networks:
+      - app-network
+
+
 networks:
   app-network:
+
+volumes:
+  pgdata:

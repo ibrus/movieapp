@@ -10,11 +10,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: movieapp
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: MyNewSecurePass123
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     env:
+      SPRING_PROFILES_ACTIVE: local
+
       # User Service DB
-      USER_SERVICE_SPRING_DATASOURCE_URL: ${{ secrets.USER_SERVICE_SPRING_DATASOURCE_URL }}
-      USER_SERVICE_SPRING_DATASOURCE_USERNAME: ${{ secrets.USER_SERVICE_SPRING_DATASOURCE_USERNAME }}
-      USER_SERVICE_SPRING_DATASOURCE_PASSWORD: ${{ secrets.USER_SERVICE_SPRING_DATASOURCE_PASSWORD }}
+      USER_SERVICE_SPRING_DATASOURCE_USERNAME: postgres
+      USER_SERVICE_SPRING_DATASOURCE_PASSWORD: MyNewSecurePass123
+        # USER_SERVICE_SPRING_DATASOURCE_USERNAME: ${{ secrets.USER_SERVICE_SPRING_DATASOURCE_USERNAME }}
+        # USER_SERVICE_SPRING_DATASOURCE_PASSWORD: ${{ secrets.USER_SERVICE_SPRING_DATASOURCE_PASSWORD }}
 
       # Movie Service DB
       MONGODB_URI: ${{ secrets.MONGODB_URI }}
@@ -37,7 +55,7 @@ jobs:
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
 
       # Active profile (test)
-      SPRING_PROFILES_ACTIVE: test
+#      SPRING_PROFILES_ACTIVE: test
 
     steps:
       - name: Checkout code
@@ -73,6 +91,14 @@ jobs:
           file gradlew
           echo "gradlew first line:"
           head -n 1 gradlew
+
+      - name: Wait for PostgreSQL
+        run: |
+          for i in {1..10}; do
+            nc -z localhost 5432 && echo "Postgres is up" && break
+            echo "Waiting for Postgres..."
+            sleep 3
+          done
 
       - name: Build and Test with Gradle
         run: ./gradlew clean build --no-daemon

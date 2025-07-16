@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  padding: 20px;
+}
+
+h2 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-size: 1.8em;
+  color: #333;
+}
+
+/* Add more styles for movie-carousel and other elements later */
